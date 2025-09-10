@@ -1,1 +1,30 @@
-test
+10-11. Arrays and Loops
+⦁	 	Arrays = list of values
+⦁	 	Loops (while loop, for loop)
+⦁	 	Accumulator Pattern
+⦁	 	Created a Todo list project
+
+ 	Main idea of JavaScript:
+ 	1. Save the data (thru an object or array) ~ Data Objects
+ 	2. Generate the HTML                       ~ DOM
+ 	3. Make it interactive                     ~ EventListener
+
+⦁	 	Arrays are references, destructuring
+⦁	 	More features of loops:
+ 		break, continue, loops inside a function
+
+12. Advanced Functions (part 1)
+⦁	 	Hoisting
+⦁	 	Functions are values
+⦁	 	Anonymous function
+ 		setTimeout(function(){}, 3000);
+ 		setInterval(function(){}, 1000);
+ 			forEach(function(value, index){});	return = continue
+
+12. Advanceed Functions (part 2)
+⦁	 	Functions are values
+⦁	 	setTimeout() setInterval()
+⦁	 	.forEach()
+⦁	 	Arrow functions, .add/removeEventListeners
+⦁	 	.filter, .map()
+⦁	 	Closure
