@@ -4,10 +4,11 @@
 ⦁	 	Accumulator Pattern
 ⦁	 	Created a Todo list project
 
- 	Main idea of JavaScript:
- 	1. Save the data (thru an object or array) ~ Data Objects
- 	2. Generate the HTML                       ~ DOM
- 	3. Make it interactive                     ~ EventListener
+ 	(Main idea of JavaScript:
+ 	1. Save the data (thru an object or array	)
+ 	2. Generate the HTML
+ 	3. Make it interactive
+      	)
 
 ⦁	 	Arrays are references, destructuring
 ⦁	 	More features of loops:
@@ -28,3 +29,16 @@
 ⦁	 	Arrow functions, .add/removeEventListeners
 ⦁	 	.filter, .map()
 ⦁	 	Closure
+
+13. Amazon
+⦁		Main Idea of JavaScript
+⦁		Created list of products
+⦁		Made the "Add to Cart" button interactive
+⦁	Made the cart quantity interactive
+
+14. Modules
+⦁		Modules
+⦁		Created checkout page
+⦁		HTML Link elements and radio selectors
+⦁		Made the delete link interactive
+⦁		Saved the cart in localStorage
