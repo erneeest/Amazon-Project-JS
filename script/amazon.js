@@ -1,6 +1,8 @@
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart, updateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+
+document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
 
 let productsHTML = ``;
 
@@ -61,14 +63,14 @@ products.forEach(product => {
 let productsGridElement = document.querySelector('.js-products-grid');
 productsGridElement.innerHTML = productsHTML;
 
-
+homepageCartTotal();
 //Array of buttons                                     //forEach
 document.querySelectorAll('.js-add-to-cart-button').forEach(addToCartButton=> {
   addToCartButton.addEventListener('click', () => {
     const { productId } = addToCartButton.dataset; // data-product-id  ..... dataset.productId
-    
+
     addToCart(productId);
-    updateCartQuantity();
+    homepageCartTotal();
     displayAddedFunction(productId);
     
     
@@ -76,17 +78,6 @@ document.querySelectorAll('.js-add-to-cart-button').forEach(addToCartButton=> {
 });
 
 
-
-function updateCartQuantity(){
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
-  
-  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-
-  console.log(cart);
-}
 
 const addedMessageTimeout = {}
 function displayAddedFunction(productId){
@@ -107,4 +98,13 @@ function displayAddedFunction(productId){
       // Save the timeoutId for this product
       // so we can stop it later if we need to
       addedMessageTimeout[productId] = timeoutId;
+}
+
+function homepageCartTotal(){
+  const jsCartQuantityElement = document.querySelector('.js-cart-quantity');
+  if(updateCartQuantity()>0){
+      jsCartQuantityElement.innerHTML = updateCartQuantity();
+    }else{
+      jsCartQuantityElement.innerHTML = '';
+    }
 }
