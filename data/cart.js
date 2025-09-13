@@ -5,7 +5,7 @@ export let cart = [{
 {
     productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
     quantity: 1   
-}, 
+}
 ];
 
 export function addToCart(productId){
@@ -22,7 +22,7 @@ export function addToCart(productId){
     matchingItem.quantity += Number(productQuantity.value);
   }else{
     cart.push({
-      id: productId,
+      productId: productId,
       quantity: Number(productQuantity.value)
     });
   }
