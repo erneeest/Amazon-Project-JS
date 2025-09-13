@@ -15,7 +15,7 @@ cart.forEach(cartItem => {
     });
 
     if(matchingItem){
-        cartSummaryHTML += `<div class="cart-item-container">
+        cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${matchingItem.id}">
                <div class="delivery-date">
                  Delivery date: Tuesday, June 21
                </div>
@@ -96,11 +96,14 @@ cart.forEach(cartItem => {
 
 document.querySelector('.order-summary').innerHTML += cartSummaryHTML;
 
-document.querySelectorAll('.js-delete-link').forEach((deleteLink, index) => {
+document.querySelectorAll('.js-delete-link').forEach((deleteLink) => {
     deleteLink.addEventListener('click', () => {
       const productId = deleteLink.dataset.linkId;
 
       removeFromCart(productId);
       console.log(cart);
+
+      const container = document.querySelector(`.js-cart-item-container-${productId}`);
+      container.remove();
     });
 });
