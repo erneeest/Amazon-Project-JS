@@ -36,9 +36,11 @@ cart.forEach(cartItem => {
                      <span>
                        Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                      </span>
-                     <span class="update-quantity-link link-primary">
+                     <span class="update-quantity-link link-primary js-update-quantity">
                        Update
                      </span>
+                     <input class="quantity-input">
+                     <span class="save-quantity-link link-primary js-save-quantity-link">Save</span>
                      <span class="delete-quantity-link link-primary js-delete-link" data-link-id="${matchingItem.id}">
                        Delete
                      </span>
@@ -119,4 +121,31 @@ function updateCheckoutTotal(){
     }else{
       checkoutTotalItems.innerHTML = '';
     }
-}
+  }
+  
+let isUpdating = false;
+document.querySelectorAll('.js-update-quantity').forEach((updateLink) => {
+  updateLink.addEventListener('click', () => {
+    if(!isUpdating){
+      document.querySelector('.quantity-input').classList.add('is-editing-quantity');
+      document.querySelector('.js-save-quantity-link').classList.add('is-editing-quantity');
+      isUpdating = !isUpdating;
+    }
+
+  });
+});
+
+document.querySelectorAll('.js-save-quantity-link').forEach((saveLink) => {
+  saveLink.addEventListener('click', () => {
+
+    if(isUpdating){
+      document.querySelector('.quantity-input').classList.remove('is-editing-quantity');
+      saveLink.classList.remove('is-editing-quantity');
+
+      // document.querySelector('.js-update-quantity').classList.remove('is-editing-quantity');
+
+      isUpdating = !isUpdating;
+    }
+
+  });
+});

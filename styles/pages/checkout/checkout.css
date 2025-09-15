@@ -204,8 +204,20 @@
   width: 100%;
   padding-top: 12px;
   padding-bottom: 12px;
-  border-radius: 8px;
+  border-radius: 8px; 
 
   margin-top: 11px;
   margin-bottom: 15px;
+}
+
+.quantity-input{
+  width: 30px;
+  display: none;
+}
+
+.save-quantity-link{
+  display: none;
+}
+.is-editing-quantity{
+  display: initial;
 }
