@@ -33,19 +33,18 @@ cart.forEach(cartItem => {
                      $${formatCurrency(matchingItem.priceCents)}
                    </div>
                    <div class="product-quantity">
-                        <div class="update-container">
-                            <span>
-                              Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-                            </span>
-                            <span class="update-quantity-link link-primary js-update-quantity">
+                        <div class="js-update-container-${matchingItem.id}">      
+                            Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                            <span class="update-quantity-link link-primary js-update-quantity" data-product-id="${matchingItem.id}">
                               Update
                             </span>
                         </div>
-                        <div class="editing-quantity-container">
+                      
+                        <div class="editing-quantity-container js-editing-quantity-container-${matchingItem.id}">
                             <input class="quantity-input">
-                            <span class="save-quantity-link link-primary js-save-quantity-link">Save</span>
+                            <span class="save-quantity-link link-primary js-save-quantity-link" data-product-id="${matchingItem.id}">Save</span>
                         </div>
-                     <span class="delete-quantity-link link-primary js-delete-link" data-link-id="${matchingItem.id}">
+                     <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingItem.id}">
                        Delete
                      </span>
                    </div>
@@ -105,7 +104,7 @@ document.querySelector('.order-summary').innerHTML += cartSummaryHTML;
 
 document.querySelectorAll('.js-delete-link').forEach((deleteLink) => {
     deleteLink.addEventListener('click', () => {
-      const productId = deleteLink.dataset.linkId;
+      const { productId } = deleteLink.dataset;
 
       removeFromCart(productId);
       console.log(cart);
@@ -127,13 +126,28 @@ function updateCheckoutTotal(){
     }
   }
   
-let isUpdating = false;
+let isUpdating = {};
 document.querySelectorAll('.js-update-quantity').forEach((updateLink) => {
   updateLink.addEventListener('click', () => {
-    if(!isUpdating){
-      document.querySelector('.editing-quantity-container').classList.add('is-editing-quantity');
-      document.querySelector('.update-container').classList.add('update-container-off');
-      isUpdating = !isUpdating;
+
+    const { productId } = updateLink.dataset;
+
+    if(!isUpdating[productId]){
+      
+      let matchingItem;
+      
+      cart.forEach(cartItem => {
+        if(cartItem.productId === productId){
+          matchingItem = cartItem;
+        }
+      });
+
+      if(matchingItem){
+        document.querySelector(`.js-editing-quantity-container-${productId}`).classList.add('is-editing-quantity');
+        document.querySelector(`.js-update-container-${productId}`).classList.add('update-container-off');
+        console.log('gumana');
+        isUpdating[productId] = true;
+      }
     }
   });
 });
@@ -141,12 +155,25 @@ document.querySelectorAll('.js-update-quantity').forEach((updateLink) => {
 document.querySelectorAll('.js-save-quantity-link').forEach((saveLink) => {
   saveLink.addEventListener('click', () => {
 
-    if(isUpdating){
-      document.querySelector('.editing-quantity-container').classList.remove('is-editing-quantity');
-      document.querySelector('.update-container').classList.remove('update-container-off');
-      // document.querySelector('.js-update-quantity').classList.remove('is-editing-quantity');
+    const { productId } = saveLink.dataset;
 
-      isUpdating = !isUpdating;
+    if(isUpdating[productId]){
+
+      let matchingItem;
+
+      cart.forEach(cartItem => {
+        if(cartItem.productId === productId){
+          matchingItem = cartItem;
+        }
+      });
+
+      if(matchingItem){
+        document.querySelector(`.js-editing-quantity-container-${productId}`).classList.remove('is-editing-quantity');
+        document.querySelector(`.js-update-container-${productId}`).classList.remove('update-container-off');
+        // document.querySelector('.js-update-quantity').classList.remove('is-editing-quantity');
+  
+        isUpdating[productId] = false;
+      }
     }
   });
 });
