@@ -33,14 +33,18 @@ cart.forEach(cartItem => {
                      $${formatCurrency(matchingItem.priceCents)}
                    </div>
                    <div class="product-quantity">
-                     <span>
-                       Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-                     </span>
-                     <span class="update-quantity-link link-primary js-update-quantity">
-                       Update
-                     </span>
-                     <input class="quantity-input">
-                     <span class="save-quantity-link link-primary js-save-quantity-link">Save</span>
+                        <div class="update-container">
+                            <span>
+                              Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                            </span>
+                            <span class="update-quantity-link link-primary js-update-quantity">
+                              Update
+                            </span>
+                        </div>
+                        <div class="editing-quantity-container">
+                            <input class="quantity-input">
+                            <span class="save-quantity-link link-primary js-save-quantity-link">Save</span>
+                        </div>
                      <span class="delete-quantity-link link-primary js-delete-link" data-link-id="${matchingItem.id}">
                        Delete
                      </span>
@@ -127,11 +131,10 @@ let isUpdating = false;
 document.querySelectorAll('.js-update-quantity').forEach((updateLink) => {
   updateLink.addEventListener('click', () => {
     if(!isUpdating){
-      document.querySelector('.quantity-input').classList.add('is-editing-quantity');
-      document.querySelector('.js-save-quantity-link').classList.add('is-editing-quantity');
+      document.querySelector('.editing-quantity-container').classList.add('is-editing-quantity');
+      document.querySelector('.update-container').classList.add('update-container-off');
       isUpdating = !isUpdating;
     }
-
   });
 });
 
@@ -139,13 +142,11 @@ document.querySelectorAll('.js-save-quantity-link').forEach((saveLink) => {
   saveLink.addEventListener('click', () => {
 
     if(isUpdating){
-      document.querySelector('.quantity-input').classList.remove('is-editing-quantity');
-      saveLink.classList.remove('is-editing-quantity');
-
+      document.querySelector('.editing-quantity-container').classList.remove('is-editing-quantity');
+      document.querySelector('.update-container').classList.remove('update-container-off');
       // document.querySelector('.js-update-quantity').classList.remove('is-editing-quantity');
 
       isUpdating = !isUpdating;
     }
-
   });
 });
