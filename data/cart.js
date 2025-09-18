@@ -48,7 +48,7 @@ export function removeFromCart(productId){
   });
 
   cart = newCart;
-  saveToStorage()
+  saveToStorage();
 }
 
 export function updateCartQuantity(){
@@ -68,6 +68,7 @@ export function updateFunction(productId, inputElement){
             inputElement.value = cartItem.quantity;
           }
         });
+          saveToStorage();
 }
 
 export function saveFunction(productId, inputElement, updateCheckoutTotal){
@@ -78,5 +79,6 @@ export function saveFunction(productId, inputElement, updateCheckoutTotal){
             updateCheckoutTotal();
           }
         });
+          saveToStorage();
 }
 
