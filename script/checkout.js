@@ -33,17 +33,17 @@ cart.forEach(cartItem => {
                      $${formatCurrency(matchingItem.priceCents)}
                    </div>
                    <div class="product-quantity">
-                        <div class="js-update-container-${matchingItem.id}">      
-                            Quantity: <span class="quantity-label js-quantity-label-${matchingItem.id}">${cartItem.quantity}</span>
-                            <span class="update-quantity-link link-primary js-update-quantity" data-product-id="${matchingItem.id}">
+                            
+                            Quantity: <span class="quantity-label js-quantity-label-${matchingItem.id} js-update-container-${matchingItem.id}">${cartItem.quantity}</span>
+                            <span class="update-quantity-link link-primary js-update-quantity js-update-container-${matchingItem.id}" data-product-id="${matchingItem.id}">
                               Update
                             </span>
-                        </div>
+                    
                       
-                        <div class="editing-quantity-container js-editing-quantity-container-${matchingItem.id}">
-                            <input class="quantity-input js-quantity-input-${matchingItem.id}">
-                            <span class="save-quantity-link link-primary js-save-quantity-link" data-product-id="${matchingItem.id}">Save</span>
-                        </div>
+                        
+                            <input class="quantity-input js-quantity-input-${matchingItem.id} editing-quantity-container js-editing-quantity-container-${matchingItem.id}">
+                            <span class="save-quantity-link link-primary js-save-quantity-link editing-quantity-container js-editing-quantity-container-${matchingItem.id}" data-product-id="${matchingItem.id}">Save</span>
+                        
                      <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingItem.id}">
                        Delete
                      </span>
@@ -147,8 +147,13 @@ document.querySelectorAll('.js-update-quantity').forEach((updateLink) => {
       });
 
       if(matchingItem){
-        document.querySelector(`.js-editing-quantity-container-${productId}`).classList.add('is-editing-quantity');
-        document.querySelector(`.js-update-container-${productId}`).classList.add('update-container-off');
+        document.querySelectorAll(`.js-editing-quantity-container-${productId}`).forEach(editingItem => {
+          editingItem.classList.add('is-editing-quantity');
+        });
+
+        document.querySelectorAll(`.js-update-container-${productId}`).forEach(savedItem => {
+          savedItem.classList.add('update-container-off');
+        });
         
         updateFunction(productId, inputElement);
 
@@ -175,8 +180,13 @@ document.querySelectorAll('.js-save-quantity-link').forEach((saveLink) => {
       });
 
       if(matchingItem){
-        document.querySelector(`.js-editing-quantity-container-${productId}`).classList.remove('is-editing-quantity');
-        document.querySelector(`.js-update-container-${productId}`).classList.remove('update-container-off');
+        document.querySelectorAll(`.js-editing-quantity-container-${productId}`).forEach(editingItem => {
+          editingItem.classList.remove('is-editing-quantity');
+        });
+
+        document.querySelectorAll(`.js-update-container-${productId}`).forEach(savedItem => {
+          savedItem.classList.remove('update-container-off');
+        });
 
         saveFunction(productId, inputElement, updateCheckoutTotal);
   
