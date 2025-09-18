@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateCartQuantity } from '../data/cart.js';
+import { cart, removeFromCart, updateCartQuantity, saveFunction, updateFunction} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -102,6 +102,7 @@ cart.forEach(cartItem => {
 
 let checkoutTotalItems = document.querySelector('.js-checkout-total');
 
+
 let updateCheckoutTotal = () => {
     if(updateCartQuantity() > 0){
       checkoutTotalItems.innerHTML = `${updateCartQuantity()} Items`;
@@ -109,8 +110,8 @@ let updateCheckoutTotal = () => {
       checkoutTotalItems.innerHTML = '';
     }
   }
-updateCheckoutTotal();
 
+  updateCheckoutTotal();
 //========================================================================================
 
 document.querySelector('.order-summary').innerHTML += cartSummaryHTML;
@@ -149,11 +150,7 @@ document.querySelectorAll('.js-update-quantity').forEach((updateLink) => {
         document.querySelector(`.js-editing-quantity-container-${productId}`).classList.add('is-editing-quantity');
         document.querySelector(`.js-update-container-${productId}`).classList.add('update-container-off');
         
-        cart.forEach(cartItem => {
-          if(cartItem.productId === productId){
-            inputElement.value = cartItem.quantity;
-          }
-        });
+        updateFunction(productId, inputElement);
 
         isUpdating[productId] = true;
       }
@@ -181,13 +178,7 @@ document.querySelectorAll('.js-save-quantity-link').forEach((saveLink) => {
         document.querySelector(`.js-editing-quantity-container-${productId}`).classList.remove('is-editing-quantity');
         document.querySelector(`.js-update-container-${productId}`).classList.remove('update-container-off');
 
-        cart.forEach(cartItem => {
-          if(cartItem.productId === productId){
-            cartItem.quantity = Number(inputElement.value);
-            document.querySelector(`.js-quantity-label-${productId}`).innerHTML = cartItem.quantity;
-            updateCheckoutTotal();
-          }
-        });
+        saveFunction(productId, inputElement, updateCheckoutTotal);
   
         isUpdating[productId] = false;
       }

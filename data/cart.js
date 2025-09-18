@@ -60,3 +60,23 @@ export function updateCartQuantity(){
   
   return cartQuantity;
 }
+
+
+export function updateFunction(productId, inputElement){
+        cart.forEach(cartItem => {
+          if(cartItem.productId === productId){
+            inputElement.value = cartItem.quantity;
+          }
+        });
+}
+
+export function saveFunction(productId, inputElement, updateCheckoutTotal){
+        cart.forEach(cartItem => {
+          if(cartItem.productId === productId){
+            cartItem.quantity = Number(inputElement.value);
+            document.querySelector(`.js-quantity-label-${productId}`).innerHTML = cartItem.quantity;
+            updateCheckoutTotal();
+          }
+        });
+}
+
