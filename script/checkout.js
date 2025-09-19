@@ -41,7 +41,7 @@ cart.forEach(cartItem => {
                     
                       
                         
-                            <input class="quantity-input js-quantity-input-${matchingItem.id} editing-quantity-container js-editing-quantity-container-${matchingItem.id}">
+                            <input class="quantity-input js-quantity-input js-quantity-input-${matchingItem.id} editing-quantity-container js-editing-quantity-container-${matchingItem.id}" data-product-id="${matchingItem.id}">
                             <span class="save-quantity-link link-primary js-save-quantity-link editing-quantity-container js-editing-quantity-container-${matchingItem.id}" data-product-id="${matchingItem.id}">Save</span>
                         
                      <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingItem.id}">
@@ -147,17 +147,7 @@ document.querySelectorAll('.js-update-quantity').forEach((updateLink) => {
       });
 
       if(matchingItem){
-        document.querySelectorAll(`.js-editing-quantity-container-${productId}`).forEach(editingItem => {
-          editingItem.classList.add('is-editing-quantity');
-        });
-
-        document.querySelectorAll(`.js-update-container-${productId}`).forEach(savedItem => {
-          savedItem.classList.add('update-container-off');
-        });
-        
-        updateFunction(productId, inputElement);
-
-        isUpdating[productId] = true;
+        goToSaveSection(productId, inputElement);
       }
     }
   });
@@ -180,7 +170,41 @@ document.querySelectorAll('.js-save-quantity-link').forEach((saveLink) => {
       });
 
       if(matchingItem){
-        document.querySelectorAll(`.js-editing-quantity-container-${productId}`).forEach(editingItem => {
+         goToUpdateSection(productId, inputElement);
+      }
+    }
+  });
+});
+//==================================================================== iterate through the inputs and addedEventListener 'keydown', event => {if(event.key === 'Enter')};
+
+document.querySelectorAll('.js-quantity-input').forEach(input => {
+    input.addEventListener('keydown', event => {
+      const { productId } = input.dataset;
+      if(event.key === 'Enter'){
+
+        goToUpdateSection(productId, input);
+        console.log('Entered', productId, input);
+      }
+    });
+});
+
+//==================================================================== Goes inside when clicking Update/Save
+function goToSaveSection(productId, inputElement){
+  document.querySelectorAll(`.js-editing-quantity-container-${productId}`).forEach(editingItem => {
+          editingItem.classList.add('is-editing-quantity');
+        });
+
+        document.querySelectorAll(`.js-update-container-${productId}`).forEach(savedItem => {
+          savedItem.classList.add('update-container-off');
+        });
+        
+        updateFunction(productId, inputElement);
+
+        isUpdating[productId] = true;
+}
+
+function goToUpdateSection(productId, inputElement){
+      document.querySelectorAll(`.js-editing-quantity-container-${productId}`).forEach(editingItem => {
           editingItem.classList.remove('is-editing-quantity');
         });
 
@@ -191,7 +215,4 @@ document.querySelectorAll('.js-save-quantity-link').forEach((saveLink) => {
         saveFunction(productId, inputElement, updateCheckoutTotal);
   
         isUpdating[productId] = false;
-      }
-    }
-  });
-});
+}
