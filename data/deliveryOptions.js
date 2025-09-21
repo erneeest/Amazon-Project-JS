@@ -1,3 +1,4 @@
+//Delivery options for each of the cart item
 export let deliveryOptions = [{
     id: '1',
     deliveryDays: 7,
