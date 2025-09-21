@@ -3,7 +3,7 @@ import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOption } from '../data/deliveryOption.js';
+import { deliveryOptions } from '../data/deliveryOptions.js';
 
 let cartSummaryHTML = '';
 
@@ -56,7 +56,7 @@ cart.forEach(cartItem => {
                    <div class="delivery-options-title">
                      Choose a delivery option:
                    </div>
-                   ${generateDeliveryOptionsHTML(matchingItem, cartItem)}
+                   $ deliveryOptionsHTML(matchingItem, cartItem)}
                  </div>
                </div>
              </div>
@@ -64,7 +64,7 @@ cart.forEach(cartItem => {
     }
 });
 
-function generateDeliveryOptionsHTML(matchingItem, cartItem){
+function deliveryOptionsHTML(matchingItem, cartItem){
   let HTML = '';
   let today = dayjs();
   
