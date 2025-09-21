@@ -1,4 +1,4 @@
-
+//Delivery Options of each Cart Item
 export let deliveryOption = [
     {
         id: '1',
