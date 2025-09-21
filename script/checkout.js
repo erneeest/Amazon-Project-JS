@@ -56,7 +56,7 @@ cart.forEach(cartItem => {
                    <div class="delivery-options-title">
                      Choose a delivery option:
                    </div>
-                   $ deliveryOptionsHTML(matchingItem, cartItem)}
+                   ${deliveryOptionsHTML(matchingItem, cartItem)}
                  </div>
                </div>
              </div>
@@ -68,7 +68,7 @@ function deliveryOptionsHTML(matchingItem, cartItem){
   let HTML = '';
   let today = dayjs();
   
-  deliveryOption.forEach(option => {
+  deliveryOptions.forEach(option => {
     let deliveryDate = today.add(option.deliveryDate, 'days');
     let todayFormatted = deliveryDate.format('dddd, MMMM DD');
 

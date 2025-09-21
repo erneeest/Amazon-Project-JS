@@ -1,5 +1,5 @@
 
-export let deliveryOption = [
+export let deliveryOptions = [
     {
         id: '1',
         deliveryDate: 7,
