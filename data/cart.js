@@ -85,3 +85,15 @@ export function saveFunction(productId, inputElement, updateCheckoutTotal){
           saveToStorage();
 }
 
+export function changeDeliveryOption(productId, deliveryOption){
+  let matchingItem;
+  cart.forEach(cartItem => {
+    if(cartItem.productId === productId){
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.deliveryOptions = deliveryOption;
+
+  saveToStorage();
+}
