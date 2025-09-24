@@ -4,6 +4,7 @@ import { formatCurrency } from '../utils/money.js';
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryOptions, getDeliveryOptions } from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 
 export function renderOrderSummary(){
@@ -19,7 +20,7 @@ export function renderOrderSummary(){
 
           const deliveryOptionId = cartItem.deliveryOptions;
           let deliveryOption = getDeliveryOptions(deliveryOptionId);
-          
+
           const today = dayjs();
           const deliveryDatee = today.add(deliveryOption.deliveryDays, 'days'); 
           const deliveryDateeFormatted = deliveryDatee.format('dddd, MMMM D');
@@ -103,11 +104,11 @@ export function renderOrderSummary(){
     });
     return HTML;
   }
-
+//========================================================================================== Total Items
   let checkoutTotalItems = document.querySelector('.js-checkout-total');
 
 
-  let updateCheckoutTotal = () => {
+  function updateCheckoutTotal(){
       if(updateCartQuantity() > 0){
         checkoutTotalItems.innerHTML = `${updateCartQuantity()} Items`;
       }else{
@@ -130,6 +131,7 @@ export function renderOrderSummary(){
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
         container.remove();
         updateCheckoutTotal();
+        renderPaymentSummary();
       });
   });
   //========================================================================================
@@ -175,6 +177,7 @@ export function renderOrderSummary(){
 
         if(matchingItem){
           goToUpdateSection(productId, inputElement);
+          renderPaymentSummary();
         }
       }
     });
@@ -187,7 +190,7 @@ export function renderOrderSummary(){
         if(event.key === 'Enter'){
 
           goToUpdateSection(productId, input);
-          console.log('Entered', productId, input);
+          renderPaymentSummary();
         }
       });
   });
@@ -233,7 +236,7 @@ export function renderOrderSummary(){
       const { productId, deliveryOptionId } = element.dataset;    
       changeDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
-      console.log(cart);
+      renderPaymentSummary();
     });
   });
 }
