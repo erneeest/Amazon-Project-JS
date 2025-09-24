@@ -3,7 +3,7 @@ import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOptions } from '../../data/deliveryOptions.js';
 
 
 export function renderOrderSummary(){
@@ -17,13 +17,9 @@ export function renderOrderSummary(){
   
       if(matchingItem){
 
-          let deliveryOption;
-          deliveryOptions.forEach(option => {
-            if(option.id === cartItem.deliveryOptions){
-              deliveryOption = option;
-            }
-          });      
-
+          const deliveryOptionId = cartItem.deliveryOptions;
+          let deliveryOption = getDeliveryOptions(deliveryOptionId);
+          
           const today = dayjs();
           const deliveryDatee = today.add(deliveryOption.deliveryDays, 'days'); 
           const deliveryDateeFormatted = deliveryDatee.format('dddd, MMMM D');
