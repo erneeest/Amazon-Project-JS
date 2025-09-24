@@ -15,6 +15,19 @@ export function renderPaymentSummary(){
         shippingAndHandlingPriceCents += getDeliveryOptions(deliveryOptions).priceCents;
     });
     
+    const totalBeforeTaxCents = totalItemsPriceCents + shippingAndHandlingPriceCents;
+    const taxCents = totalBeforeTaxCents * 0.1; // 10% tax
+
+    const totalCents = taxCents + totalBeforeTaxCents;
+
+
+
     console.log(`$${formatCurrency(totalItemsPriceCents)}`);
     console.log(`$${formatCurrency(shippingAndHandlingPriceCents)}`);
+    console.log(`$${formatCurrency(totalBeforeTaxCents)}`);
+    console.log(`$${formatCurrency(taxCents)}`);
+    console.log(`$${formatCurrency(totalCents)}`);
+
+
+
 }
