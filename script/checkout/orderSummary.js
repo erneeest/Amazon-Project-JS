@@ -5,6 +5,7 @@ import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryOptions, getDeliveryOptions } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
+import { updateTotal } from './checkoutHeader.js';
 
 
 export function renderOrderSummary(){
@@ -105,16 +106,6 @@ export function renderOrderSummary(){
     return HTML;
   }
 //========================================================================================== Total Items
-  let checkoutTotalItems = document.querySelector('.js-checkout-total');
-
-  function updateTotal(){
-    if(updateCartQuantity() > 0){
-      checkoutTotalItems.innerHTML = `${updateCartQuantity()} Items`;
-    }else{
-      checkoutTotalItems.innerHTML = '';
-    }
-  }
-
     updateTotal();
   //========================================================================================
 
