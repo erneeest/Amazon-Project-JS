@@ -10,6 +10,16 @@ export function getDeliveryOptions(deliveryOptionId){
     return deliveryOption || deliveryOptions[0];
 }
 
+export function getAvailableDeliveryOptions(date){
+  switch(date.format('dddd')){
+    case 'Saturday': date.add(2, 'd')
+      break;
+    case 'Sunday': date.add(1, 'd')
+      break;
+  }
+  return date;
+}
+
 export let deliveryOptions = [{
     id: '1',
     deliveryDays: 7,
