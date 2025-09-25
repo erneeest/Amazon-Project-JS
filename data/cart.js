@@ -74,12 +74,11 @@ export function updateFunction(productId, inputElement){
           saveToStorage();
 }
 
-export function saveFunction(productId, inputElement, updateTotal){
+export function saveFunction(productId, inputElement){
         cart.forEach(cartItem => {
           if(cartItem.productId === productId){
             cartItem.quantity = Number(inputElement.value);
             document.querySelector(`.js-quantity-label-${productId}`).innerHTML = cartItem.quantity;
-            updateTotal();
           }
         });
           saveToStorage();
