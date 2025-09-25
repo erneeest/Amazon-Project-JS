@@ -5,7 +5,7 @@ import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryOptions, getDeliveryOptions } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
-import { updateTotal } from './checkoutHeader.js';
+import { renderCheckoutHeader } from './checkoutHeader.js';
 
 
 export function renderOrderSummary(){
@@ -106,7 +106,8 @@ export function renderOrderSummary(){
     return HTML;
   }
 //========================================================================================== Total Items
-    updateTotal();
+    // updateTotal();
+    renderCheckoutHeader();
   //========================================================================================
 
   document.querySelector('.order-summary').innerHTML = cartSummaryHTML;
@@ -120,10 +121,9 @@ export function renderOrderSummary(){
 
         // const container = document.querySelector(`.js-cart-item-container-${productId}`);
         // container.remove();
-        
-        updateTotal();
         renderOrderSummary();
         renderPaymentSummary();
+        renderCheckoutHeader();
       });
   });
   //========================================================================================
@@ -170,6 +170,7 @@ export function renderOrderSummary(){
         if(matchingItem){
           goToUpdateSection(productId, inputElement);
           renderPaymentSummary();
+          renderCheckoutHeader();
         }
       }
     });
@@ -180,9 +181,9 @@ export function renderOrderSummary(){
       input.addEventListener('keydown', event => {
         const { productId } = input.dataset;
         if(event.key === 'Enter'){
-
           goToUpdateSection(productId, input);
           renderPaymentSummary();
+          renderCheckoutHeader()
         }
       });
   });
@@ -211,7 +212,7 @@ export function renderOrderSummary(){
             savedItem.classList.remove('update-container-off');
           });
 
-          saveFunction(productId, inputElement, updateTotal);
+          saveFunction(productId, inputElement);
     
           isUpdating[productId] = false;
   }
@@ -225,7 +226,7 @@ export function renderOrderSummary(){
 
   document.querySelectorAll('.js-delivery-option').forEach(element => {
     element.addEventListener('click', () => {
-      const { productId, deliveryOptionId } = element.dataset;    
+      const { productId, deliveryOptionId } = element.dataset;
       changeDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       renderPaymentSummary();
