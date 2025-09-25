@@ -107,16 +107,15 @@ export function renderOrderSummary(){
 //========================================================================================== Total Items
   let checkoutTotalItems = document.querySelector('.js-checkout-total');
 
-
-  function updateCheckoutTotal(){
-      if(updateCartQuantity() > 0){
-        checkoutTotalItems.innerHTML = `${updateCartQuantity()} Items`;
-      }else{
-        checkoutTotalItems.innerHTML = '';
-      }
+  function updateTotal(){
+    if(updateCartQuantity() > 0){
+      checkoutTotalItems.innerHTML = `${updateCartQuantity()} Items`;
+    }else{
+      checkoutTotalItems.innerHTML = '';
     }
+  }
 
-    updateCheckoutTotal();
+    updateTotal();
   //========================================================================================
 
   document.querySelector('.order-summary').innerHTML = cartSummaryHTML;
@@ -128,9 +127,11 @@ export function renderOrderSummary(){
         removeFromCart(productId);
         console.log(cart);
 
-        const container = document.querySelector(`.js-cart-item-container-${productId}`);
-        container.remove();
-        updateCheckoutTotal();
+        // const container = document.querySelector(`.js-cart-item-container-${productId}`);
+        // container.remove();
+        
+        updateTotal();
+        renderOrderSummary();
         renderPaymentSummary();
       });
   });
@@ -219,7 +220,7 @@ export function renderOrderSummary(){
             savedItem.classList.remove('update-container-off');
           });
 
-          saveFunction(productId, inputElement, updateCheckoutTotal);
+          saveFunction(productId, inputElement, updateTotal);
     
           isUpdating[productId] = false;
   }
