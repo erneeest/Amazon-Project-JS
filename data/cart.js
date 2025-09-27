@@ -40,7 +40,7 @@ export function addToCart(productId){
   }else{
     cart.push({
       productId: productId,
-      quantity: Number(productQuantity.value),
+      quantity: 1,
       deliveryOptions: '1'
     });
   }
