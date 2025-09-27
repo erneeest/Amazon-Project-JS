@@ -35,14 +35,14 @@ export function addToCart(productId){
     }
   });
   
-  if(matchingItem){
-    matchingItem.quantity += Number(productQuantity.value);
-  }else{
+  if(!matchingItem){
     cart.push({
       productId: productId,
       quantity: Number(productQuantity.value),
       deliveryOptions: '1'
     });
+  }else{
+    matchingItem.quantity += Number(productQuantity.value);
   }
   saveToStorage();
 }

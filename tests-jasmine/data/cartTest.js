@@ -6,14 +6,16 @@ describe('test suite: addToCart', () => {
     });
 
     it('add new product to the cart', () => {
-        // spyOn(localStorage, 'getItem').and.callFake(() => {
-        //     return JSON.stringify([]);
-        // });
-        // console.log(localStorage.getItem('cart'));
-        // loadFromStorage();  
+        spyOn(localStorage, 'getItem').and.callFake(() => {
+            return JSON.stringify([]);
+        });
+        console.log(localStorage.getItem('cart'));
+        loadFromStorage();  
         
-        // addToCart('id1');
-        // expect(cart.length).toEqual(1);
+        addToCart('id1');
+        expect(cart.length).toEqual(1);
+        // spyOn(localStorage, 'setItem');
+        // expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     });
 });
 
